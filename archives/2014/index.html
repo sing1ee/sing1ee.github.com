@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Archives: 2014 | Intelligence Explosion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Blog about AI, ML and Sigularity">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Intelligence Explosion">
+<meta property="og:url" content="http://sing1ee.github.io/archives/2014/">
+<meta property="og:site_name" content="Intelligence Explosion">
+<meta property="og:description" content="Blog about AI, ML and Sigularity">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Intelligence Explosion">
+<meta name="twitter:description" content="Blog about AI, ML and Sigularity">
+
+  
+    <link rel="alternative" href="/atom.xml" title="Intelligence Explosion" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Intelligence Explosion</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">The Singularity is Near</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="http://www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="sing1ee.github.io">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-min-stack" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/11/24/min-stack/" class="article-date">
+  <time datetime="2014-11-24T13:59:00.000Z" itemprop="datePublished">11月 24 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/算法/">算法</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/11/24/min-stack/">min stack</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="题目">题目</h4>
+<p>设计一个Stack，实现如下操作：</p>
+<ol>
+<li>push(), 入栈</li>
+<li>pop(), 出栈</li>
+<li>top(), 返回栈顶元素</li>
+<li>getMin(), 返回栈中的最小元素</li>
+</ol>
+<p>注意上面的操作，都要在常数时间完成。</p>
+<h4 id="分析">分析</h4>
+<p>Leetcode上面的原题，思路并不难想，但是AC还是有难度的，尤其是用Java，如果能够确保不出现MLE？我们先逐步分析一下。</p>
+<p>首先，第一个思路，最容易想到，定义一个新的栈，栈的每一个元素包含两个数，一个当前数，一个入栈到目前为止的最小数。有如下的代码示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">class Element {</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> x;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> min;</div><div class="line">    <span class="keyword">public</span> <span class="title">Element</span>(<span class="keyword">int</span> x, <span class="keyword">int</span> min) {</div><div class="line">        <span class="keyword">super</span>();</div><div class="line">        <span class="keyword">this</span>.x = x;</div><div class="line">        <span class="keyword">this</span>.min = min;</div><div class="line">    }</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MinStackSlow</span> </span>{</div><div class="line">    </div><div class="line">    <span class="keyword">private</span> LinkedList&lt;Element&gt; stack = <span class="keyword">new</span> LinkedList&lt;Element&gt;();</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span>(<span class="keyword">int</span> x) {</div><div class="line">        <span class="keyword">int</span> min = x;</div><div class="line">        <span class="keyword">if</span> (!stack.isEmpty() && stack.getFirst().min &lt; min) </div><div class="line">            min = stack.getFirst().min;</div><div class="line">        stack.addFirst(<span class="keyword">new</span> Element(x, min));</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pop</span>() {</div><div class="line">        stack.removeFirst();</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> <span class="title">top</span>() {</div><div class="line">        Element el = stack.getFirst();</div><div class="line">        <span class="keyword">return</span> el.x;</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMin</span>() {</div><div class="line">        <span class="keyword">return</span> stack.getFirst().min;</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>代码很简单，但是MLE，内存超了。。。很不幸。那么如何优化呢？其实我们自己走一走这个过程，就会发现，在入栈出栈，以及getMin的过程中，有一些值，是不会出现在getMin中的。有一些min的数都是一样的。</p>
+<p>那么我们浪费了空间来存储这些一样的min值，显然是不可以的。我们做如下的优化，用另外一个栈来保存最小值，每一个栈元素除了包括最小值之外，还有一个频率。这样我们压缩了存储最小值的栈。比之前的栈要小很多。</p>
+<p>示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">class MinElement {</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> min;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> freq;</div><div class="line">    <span class="keyword">public</span> <span class="title">MinElement</span>(<span class="keyword">int</span> min, <span class="keyword">int</span> freq) {</div><div class="line">        <span class="keyword">this</span>.min = min;</div><div class="line">        <span class="keyword">this</span>.freq = freq;</div><div class="line">    }</div><div class="line">}</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MinStack</span> </span>{</div><div class="line">    </div><div class="line">    <span class="keyword">private</span> LinkedList&lt;Integer&gt; stack = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</div><div class="line">    <span class="keyword">private</span> LinkedList&lt;MinElement&gt; min = <span class="keyword">new</span> LinkedList&lt;MinElement&gt;();</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span>(<span class="keyword">int</span> x) {</div><div class="line">        <span class="keyword">if</span> (min.isEmpty()) {</div><div class="line">            min.addFirst(<span class="keyword">new</span> MinElement(x, <span class="number">1</span>));</div><div class="line">        } <span class="keyword">else</span> {</div><div class="line">            <span class="keyword">if</span> (x == min.getFirst().min) {</div><div class="line">                min.getFirst().freq += <span class="number">1</span>;</div><div class="line">            } <span class="keyword">else</span> <span class="keyword">if</span> (x &lt;  min.getFirst().min) {</div><div class="line">                min.addFirst(<span class="keyword">new</span> MinElement(x, <span class="number">1</span>));</div><div class="line">            }</div><div class="line">        }</div><div class="line">        stack.addFirst(x);</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pop</span>() {</div><div class="line">        <span class="keyword">int</span> top = stack.removeFirst();</div><div class="line">        <span class="keyword">if</span> (top == min.getFirst().min) {</div><div class="line">            <span class="keyword">if</span> (min.getFirst().freq == <span class="number">1</span>) {</div><div class="line">                min.removeFirst();</div><div class="line">            } <span class="keyword">else</span> {</div><div class="line">                min.getFirst().freq -= <span class="number">1</span>;</div><div class="line">            }</div><div class="line">        }</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> <span class="title">top</span>() {</div><div class="line">        <span class="keyword">return</span> stack.getFirst();</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMin</span>() {</div><div class="line">        <span class="keyword">return</span> min.getFirst().min;</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>提交之后，你会发现，代码还是有问题，人就是内存不过关，还能怎么优化呢？难道是LinkedList的问题？实际上，还真是这个问题。Java中LinkedList是一个双向的链表，实际上我们实现一个栈，只需要单向的。我们自己实现栈试试。代码比较糙，有些实现也不合规范。<br>但意思没问题，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">package</span> leetcode.min.stack;</div><div class="line"></div><div class="line">class IntNode {</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> x;</div><div class="line">    <span class="keyword">public</span> IntNode next;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="title">IntNode</span>(<span class="keyword">int</span> x, IntNode next) {</div><div class="line">        <span class="keyword">this</span>.x = x;</div><div class="line">        <span class="keyword">this</span>.next = next;</div><div class="line">    }</div><div class="line">}</div><div class="line"></div><div class="line">class IntStack {</div><div class="line"></div><div class="line">    <span class="keyword">private</span> IntNode head;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span>(<span class="keyword">int</span> x) {</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == head) {</div><div class="line">            head = <span class="keyword">new</span> IntNode(x, <span class="keyword">null</span>);</div><div class="line">        } <span class="keyword">else</span> {</div><div class="line">            IntNode newHead = <span class="keyword">new</span> IntNode(x, head);</div><div class="line">            head = newHead;</div><div class="line">        }</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pop</span>() {</div><div class="line">        head = head.next;</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> <span class="title">top</span>() {</div><div class="line">        <span class="keyword">return</span> head.x;</div><div class="line">    }</div><div class="line">}</div><div class="line"></div><div class="line">class PairNode {</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> min;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> freq;</div><div class="line">    <span class="keyword">public</span> PairNode next;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="title">PairNode</span>(<span class="keyword">int</span> min, <span class="keyword">int</span> freq, PairNode next) {</div><div class="line">        <span class="keyword">super</span>();</div><div class="line">        <span class="keyword">this</span>.min = min;</div><div class="line">        <span class="keyword">this</span>.freq = freq;</div><div class="line">        <span class="keyword">this</span>.next = next;</div><div class="line">    }</div><div class="line">}</div><div class="line"></div><div class="line">class PairStack {</div><div class="line"></div><div class="line">    <span class="keyword">private</span> PairNode head;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span>(<span class="keyword">int</span> x) {</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == head) {</div><div class="line">            head = <span class="keyword">new</span> PairNode(x, <span class="number">1</span>, <span class="keyword">null</span>);</div><div class="line">        } <span class="keyword">else</span> {</div><div class="line">            <span class="keyword">if</span> (x == head.min) {</div><div class="line">                head.freq += <span class="number">1</span>;</div><div class="line">            } <span class="keyword">else</span> <span class="keyword">if</span> (x &lt; head.min) {</div><div class="line">                PairNode newHead = <span class="keyword">new</span> PairNode(x, <span class="number">1</span>, head);</div><div class="line">                head = newHead;</div><div class="line">            }</div><div class="line">        }</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pop</span>(<span class="keyword">int</span> x) {</div><div class="line">        <span class="keyword">if</span> (x == head.min) {</div><div class="line">            <span class="keyword">if</span> (head.freq &gt; <span class="number">1</span>) {</div><div class="line">                head.freq -= <span class="number">1</span>;</div><div class="line">            } <span class="keyword">else</span> {</div><div class="line">                head = head.next;</div><div class="line">            }</div><div class="line">        }</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> <span class="title">top</span>() {</div><div class="line">        <span class="keyword">return</span> head.min;</div><div class="line">    }</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SmallMemoryStack</span> </span>{</div><div class="line"></div><div class="line">    <span class="keyword">private</span> IntStack stack = <span class="keyword">new</span> IntStack();</div><div class="line">    <span class="keyword">private</span> PairStack min = <span class="keyword">new</span> PairStack();</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span>(<span class="keyword">int</span> x) {</div><div class="line">        stack.push(x);</div><div class="line">        min.push(x);</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pop</span>() {</div><div class="line">        min.pop(stack.top());</div><div class="line">        stack.pop();</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> <span class="title">top</span>() {</div><div class="line">        <span class="keyword">return</span> stack.top();</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getMin</span>() {</div><div class="line">        <span class="keyword">return</span> min.top();</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>通过了，看来问题确实如此。这也给了我们一个提醒，在实际的编码中，需要考虑的不仅仅是功能的实现，还有效率上的考虑。我们往往优先考虑时间，大多数时间考虑时间。但，空间也是同样重要的，尤其是Java这样的语言。</p>
+<p>【完】</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://sing1ee.github.io/2014/11/24/min-stack/" data-id="6vu3hrgfn4mgamtu" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://sing1ee.github.io/2014/11/24/min-stack/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stack/">stack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/栈/">栈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-旋转数组最小值II" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/28/旋转数组最小值II/" class="article-date">
+  <time datetime="2014-10-28T12:58:13.000Z" itemprop="datePublished">10月 28 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/算法/">算法</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/28/旋转数组最小值II/">旋转数组最小值II</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="旋转数组最小值II">旋转数组最小值II</h3>
+<h3 id="题目">题目</h3>
+<p>一个有序的数组，在从某一个位置开始，旋转到数组的另一端</p>
+<p>举例：</p>
+<p>0 1 2 3 4 5 6 -&gt; 4 5 6 0 1 2 3</p>
+<p>在这个变换之后的数组中，找到最小值。</p>
+<h4 id="注意：">注意：</h4>
+<ul>
+<li>有可能不旋转的哦。</li>
+<li>数组元素有重复</li>
+</ul>
+<h4 id="题目来自Leetcode:_Find_Minimum_in_Rotated_Sorted_Array_II">题目来自Leetcode: <a href="https://oj.leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/" target="_blank" rel="external">Find Minimum in Rotated Sorted Array II</a></h4>
+
+        
+          <p class="article-more-link">
+            <a href="/2014/10/28/旋转数组最小值II/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://sing1ee.github.io/2014/10/28/旋转数组最小值II/" data-id="vday3dx28avcnu0j" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://sing1ee.github.io/2014/10/28/旋转数组最小值II/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数组/">数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试题/">面试题</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-深度学习、自然语言处理和表征方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/21/深度学习、自然语言处理和表征方法/" class="article-date">
+  <time datetime="2014-10-21T13:50:52.000Z" itemprop="datePublished">10月 21 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/深度学习/">深度学习</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/21/深度学习、自然语言处理和表征方法/">深度学习、自然语言处理和表征方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="简介">简介</h3>
+<p>过去几年，深度神经网络在模式识别中占绝对主流。它们在许多计算机视觉任务中完爆之前的顶尖算法。在语音识别上也有这个趋势了。</p>
+<p>虽然结果好，我们也必须思考……它们为什么这么好使？</p>
+<p>在这篇文章里，我综述一下在自然语言处理（NLP）上应用深度神经网络得到的一些效果极其显著的成果。我希望能提供一个能解释为何深度神经网络好用的理由。我认为这是个非常简练而优美的视角。</p>
+
+        
+          <p class="article-more-link">
+            <a href="/2014/10/21/深度学习、自然语言处理和表征方法/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://sing1ee.github.io/2014/10/21/深度学习、自然语言处理和表征方法/" data-id="wxmqa2tol89756q0" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://sing1ee.github.io/2014/10/21/深度学习、自然语言处理和表征方法/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nlp/">nlp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深度学习/">深度学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/自然语言处理/">自然语言处理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-旋转数组的最小值" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/19/旋转数组的最小值/" class="article-date">
+  <time datetime="2014-10-19T02:55:49.000Z" itemprop="datePublished">10月 19 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/算法/">算法</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/19/旋转数组的最小值/">旋转数组的最小值</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="题目">题目</h3>
+<p>一个有序的数组，在从某一个位置开始，旋转到数组的另一端</p>
+<p>举例：</p>
+<p>0 1 2 3 4 5 6 -&gt; 4 5 6 7 0 1 2</p>
+<p>在这个变换之后的数组中，找到最小值。注意：有可能不旋转的哦。</p>
+<h4 id="题目来自Leetcode:_Find_Minimum_in_Rotated_Sorted_Array">题目来自Leetcode: <a href="https://oj.leetcode.com/problems/find-minimum-in-rotated-sorted-array/" target="_blank" rel="external">Find Minimum in Rotated Sorted Array</a></h4>
+
+        
+          <p class="article-more-link">
+            <a href="/2014/10/19/旋转数组的最小值/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://sing1ee.github.io/2014/10/19/旋转数组的最小值/" data-id="xgqy6h7c2fu5q7rg" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://sing1ee.github.io/2014/10/19/旋转数组的最小值/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Leetcode/">Leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-DeepMind背后的人工智能：深度学习原理初探" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/17/DeepMind背后的人工智能：深度学习原理初探/" class="article-date">
+  <time datetime="2014-10-17T07:42:01.000Z" itemprop="datePublished">10月 17 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/人工智能/">人工智能</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/17/DeepMind背后的人工智能：深度学习原理初探/">DeepMind背后的人工智能：深度学习原理初探</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://sing1ee.github.io/2014/10/17/DeepMind背后的人工智能：深度学习原理初探/" data-id="5cr19eshn4r2bed7" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://sing1ee.github.io/2014/10/17/DeepMind背后的人工智能：深度学习原理初探/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AGI/">AGI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DeepMind/">DeepMind</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/人工智能/">人工智能</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深度学习/">深度学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/神经网络/">神经网络</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-子数组最大乘积" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/16/子数组最大乘积/" class="article-date">
+  <time datetime="2014-10-16T08:16:17.000Z" itemprop="datePublished">10月 16 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/算法/">算法</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/16/子数组最大乘积/">子数组最大乘积</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="题目">题目</h4>
+<p>给定一个数组，至少有一个元素。请计算子数组最大乘积是多少？</p>
+<p>例如：</p>
+<blockquote>
+<ul>
+<li>给定数组 [2, 3, -2, 4]</li>
+<li>经过计算，得到最大乘积为6。子数组为[2,3]。</li>
+</ul>
+</blockquote>
+<p>题目来自Leetcode。</p>
+<h4 id="分析">分析</h4>
+<p>这个题目，有经验的同学，看过一遍，就知道肯定是动态规划了，可具体要如何规划呢？我想，有的同学还记得子数组的最大和吧？是不是觉得很激动，O(n)就可以解决了。一样的思路！但是不好意思，错了！</p>
+<p>错在哪里呢？乘法口诀还记得么？负负得正，就可恶在这里。在加法里，负负可得不到正。</p>
+
+        
+          <p class="article-more-link">
+            <a href="/2014/10/16/子数组最大乘积/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://sing1ee.github.io/2014/10/16/子数组最大乘积/" data-id="xt6y9k8osgjrnh8u" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://sing1ee.github.io/2014/10/16/子数组最大乘积/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数组/">数组</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-美股关键词趋势指数" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/16/美股关键词趋势指数/" class="article-date">
+  <time datetime="2014-10-16T06:38:26.000Z" itemprop="datePublished">10月 16 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/金融大数据/">金融大数据</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/16/美股关键词趋势指数/">美股关键词趋势指数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天受到雪球<a href="http://xueqiu.com/rayswork" target="_blank" rel="external">@雷公资本</a> <a href="http://xueqiu.com/9987866486/32233455" target="_blank" rel="external">博文</a> 的启发，百度指数、Google趋势都可以作为大家投资工具集里的一个小工具，对于趋势判断也许有帮助。正好，我们收集了很多美股市场的数据，正在琢磨怎么来用。于是就做了一个我们数据集上的趋势指数，希望对大家能有帮助。请大家玩玩：<a href="http://115.28.183.178/web/words/index.html" target="_blank" rel="external">猛击</a></p>
+<h4 id="目前只支持美股，所以信息都是英文的。大家搜索时，可以采用英文的关键词。">目前只支持美股，所以信息都是英文的。大家搜索时，可以采用英文的关键词。</h4>
+<p>主要数据：</p>
+<ol>
+<li>财经新闻</li>
+<li>SeekingAlpha</li>
+<li>Twitter</li>
+<li>StockTwits</li>
+<li>Facebook</li>
+<li>…</li>
+</ol>
+<p>大家可以看出来，我们的数据除了Google有的，也有Google没有的~~~</p>
+
+        
+          <p class="article-more-link">
+            <a href="/2014/10/16/美股关键词趋势指数/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://sing1ee.github.io/2014/10/16/美股关键词趋势指数/" data-id="6i49ymbhb3tx2392" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://sing1ee.github.io/2014/10/16/美股关键词趋势指数/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/关键词/">关键词</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/指数/">指数</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/美股/">美股</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/趋势/">趋势</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/金融/">金融</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/雪球/">雪球</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-京东B2C平台推荐搜索产品实践与思考" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/16/京东B2C平台推荐搜索产品实践与思考/" class="article-date">
+  <time datetime="2014-10-16T02:23:37.000Z" itemprop="datePublished">10月 16 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/分享/">分享</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/16/京东B2C平台推荐搜索产品实践与思考/">京东B2C平台推荐搜索产品实践与思考</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="简介">简介</h3>
+<p><img src="/img/jdtech-01.jpeg" alt=""></p>
+
+        
+          <p class="article-more-link">
+            <a href="/2014/10/16/京东B2C平台推荐搜索产品实践与思考/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://sing1ee.github.io/2014/10/16/京东B2C平台推荐搜索产品实践与思考/" data-id="hdpyyqu6jml48i71" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://sing1ee.github.io/2014/10/16/京东B2C平台推荐搜索产品实践与思考/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/京东/">京东</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/推荐实践/">推荐实践</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/推荐系统/">推荐系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-最长01子串" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/14/最长01子串/" class="article-date">
+  <time datetime="2014-10-14T02:30:55.000Z" itemprop="datePublished">10月 14 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/算法/">算法</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/14/最长01子串/">最长01子串</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="最长01子串">最长01子串</h3>
+<h4 id="原题">原题</h4>
+<p>给定一个数组，数组中只包含0和1。请找到一个最长的子序列，其中0和1的数量是相同的。<br><br>例1：10101010 结果就是其本身。<br><br>例2：1101000    结果是110100<br><br>请大家展开自己的思路。</p>
+<h4 id="分析">分析</h4>
+<p>这个题目，看起来比较简单，一些同学可能认为题目的描述符合动态规划的特征，然后就开始用动态规划解，努力找状态转移方程。这些同学的感觉，是很正确的。但，找状态转移方程，我们要对原来的数组进行变换一下。</p>
+<p>原来是0和1的串，我们将0都换为-1。这样题目目标就变成，找到一个最长的子串，子串数字和是0。设原数组为A, DP[i]表示从0开始到i的子数组和。DP遍历一遍数组即可。例1中的数组产生的DP为：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">7</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+<p>这个例子，最后一个值是0，并且长度是偶数位。直接满足了结果。</p>
+<p>再看例子2：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">6</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">-1</td>
+</tr>
+</tbody>
+</table>
+<p>5的位置为0，最长子串从0开始到5，长度为6。</p>
+<p>上面这两个例子，所求的子串都是从头开始，如果不是从头开始，会是什么样的呢？看这个例子：1101100</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">6</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<p>通过观察上面的表格，我们可以得到，DP[0]==DP[6]==DP[2]，DP[1]==DP[3]. 根据DP的定义，如果DP[i]==DP[j]，i<j，则 a[i+1]…a[j]这个子串的和为0.找到所有的这样的子串，找出其中最长的，就是我们的结果。如果找到最长的呢？<br=""><br>一种方法，我们用map保存DP的值到位置的映射，如下表：</j，则></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">DP值</th>
+<th style="text-align:left">位置</th>
+<th style="text-align:center">最大位置</th>
+<th style="text-align:center">最小位置</th>
+<th style="text-align:center">最大长度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:left">0，2，6</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">6</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:left">1，3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:left">4</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">最长子串长度</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">6</td>
+</tr>
+</tbody>
+</table>
+<p>我们最终的算法，要综合考虑最常穿是否从头开始的。<br>上面的这个思路，时间复杂度是O(n),空间复杂度也是O(n).</p>
+<p>还有其他的思路，例如DP保存的是[0,i]的1的个数，那么DP[j] - DP[i] * 2 == j - i则表明A[i+1]…A[j]是一个满足条件的串，找到j-i最大的，就是最终的结果，这个思路的时间复杂度为O(n^2),空间复杂度为O(n).</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://sing1ee.github.io/2014/10/14/最长01子串/" data-id="o9v58b8prqne3crs" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://sing1ee.github.io/2014/10/14/最长01子串/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-社交圈子挖掘小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/13/社交圈子挖掘小结/" class="article-date">
+  <time datetime="2014-10-13T12:52:31.000Z" itemprop="datePublished">10月 13 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/社交挖掘/">社交挖掘</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/13/社交圈子挖掘小结/">社交圈子挖掘小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这篇博客是对之前做的社交圈子挖掘方面尝试的总结，这个工作并没有深入太多。因为没有实际需求的驱动，没有做深。不过还是有些心得，记录下来，以后捡起来也方便，或者最好的情况，可以对后面的同学有些启发。 社交圈子挖掘，这里的圈子主要有两种：</p>
+
+        
+          <p class="article-more-link">
+            <a href="/2014/10/13/社交圈子挖掘小结/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://sing1ee.github.io/2014/10/13/社交圈子挖掘小结/" data-id="e9wjhh1mcshfmztg" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://sing1ee.github.io/2014/10/13/社交圈子挖掘小结/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复杂网络/">复杂网络</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/社交挖掘/">社交挖掘</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/社交网络/">社交网络</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/archives/2014/page/2/">2</a><a class="extend next" rel="next" href="/archives/2014/page/2/">Next &raquo;</a>
+    </nav>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/人工智能/">人工智能</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/分享/">分享</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/复杂网络/">复杂网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/社交挖掘/">社交挖掘</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/金融大数据/">金融大数据</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AGI/">AGI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepMind/">DeepMind</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Leetcode/">Leetcode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stack/">stack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/京东/">京东</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/人工智能/">人工智能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词/">关键词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创业/">创业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/复杂网络/">复杂网络</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微博/">微博</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/思维的变革/">思维的变革</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/指数/">指数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/推荐实践/">推荐实践</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/推荐系统/">推荐系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数组/">数组</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栈/">栈</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/潜意识/">潜意识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/社交挖掘/">社交挖掘</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/社交网络/">社交网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/神经网络/">神经网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序员/">程序员</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/美股/">美股</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自然语言处理/">自然语言处理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/趋势/">趋势</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/金融/">金融</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/雪球/">雪球</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试题/">面试题</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AGI/" style="font-size: 10.00px;">AGI</a><a href="/tags/DeepMind/" style="font-size: 10.00px;">DeepMind</a><a href="/tags/Leetcode/" style="font-size: 10.00px;">Leetcode</a><a href="/tags/leetcode/" style="font-size: 16.67px;">leetcode</a><a href="/tags/nlp/" style="font-size: 10.00px;">nlp</a><a href="/tags/stack/" style="font-size: 10.00px;">stack</a><a href="/tags/二分查找/" style="font-size: 13.33px;">二分查找</a><a href="/tags/京东/" style="font-size: 10.00px;">京东</a><a href="/tags/人工智能/" style="font-size: 10.00px;">人工智能</a><a href="/tags/关键词/" style="font-size: 10.00px;">关键词</a><a href="/tags/创业/" style="font-size: 10.00px;">创业</a><a href="/tags/动态规划/" style="font-size: 13.33px;">动态规划</a><a href="/tags/复杂网络/" style="font-size: 16.67px;">复杂网络</a><a href="/tags/大数据/" style="font-size: 10.00px;">大数据</a><a href="/tags/微博/" style="font-size: 10.00px;">微博</a><a href="/tags/思维的变革/" style="font-size: 10.00px;">思维的变革</a><a href="/tags/指数/" style="font-size: 10.00px;">指数</a><a href="/tags/推荐实践/" style="font-size: 10.00px;">推荐实践</a><a href="/tags/推荐系统/" style="font-size: 10.00px;">推荐系统</a><a href="/tags/数组/" style="font-size: 13.33px;">数组</a><a href="/tags/机器学习/" style="font-size: 10.00px;">机器学习</a><a href="/tags/栈/" style="font-size: 10.00px;">栈</a><a href="/tags/深度学习/" style="font-size: 13.33px;">深度学习</a><a href="/tags/潜意识/" style="font-size: 10.00px;">潜意识</a><a href="/tags/社交挖掘/" style="font-size: 16.67px;">社交挖掘</a><a href="/tags/社交网络/" style="font-size: 10.00px;">社交网络</a><a href="/tags/神经网络/" style="font-size: 10.00px;">神经网络</a><a href="/tags/程序员/" style="font-size: 10.00px;">程序员</a><a href="/tags/算法/" style="font-size: 20.00px;">算法</a><a href="/tags/美股/" style="font-size: 10.00px;">美股</a><a href="/tags/自然语言处理/" style="font-size: 10.00px;">自然语言处理</a><a href="/tags/读书笔记/" style="font-size: 13.33px;">读书笔记</a><a href="/tags/趋势/" style="font-size: 10.00px;">趋势</a><a href="/tags/金融/" style="font-size: 10.00px;">金融</a><a href="/tags/雪球/" style="font-size: 10.00px;">雪球</a><a href="/tags/面试题/" style="font-size: 10.00px;">面试题</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">13</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/06/07/读书笔记2-：程序员的思维修炼/">读书笔记2 ：《程序员的思维修炼》</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/07/读书笔记-1：《团队协作的五大障碍》/">读书笔记1：《团队协作的五大障碍》</a>
+          </li>
+        
+          <li>
+            <a href="/2014/11/24/min-stack/">min stack</a>
+          </li>
+        
+          <li>
+            <a href="/2014/10/28/旋转数组最小值II/">旋转数组最小值II</a>
+          </li>
+        
+          <li>
+            <a href="/2014/10/21/深度学习、自然语言处理和表征方法/">深度学习、自然语言处理和表征方法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">友情链接</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://xiguabaobao.com" target="_blank">主题作者</a>
+          </li>
+        
+          <li>
+            <a href="http://reqianduan.com" target="_blank">热前端</a>
+          </li>
+        
+          <li>
+            <a href="https://dsy.im/" target="_blank">YumeMichi&#39;s Wiki</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 zhangcheng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"sing1ee"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>window._bd_share_config={"common":{},"share":{"bdCustomStyle":"nocss.css"}};with(document)0[(getElementsByTagName("head")[0]||body).appendChild(createElement("script")).src="http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion="+~(-new Date()/36e5)];</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

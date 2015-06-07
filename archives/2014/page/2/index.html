@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Archives: 2014 | Intelligence Explosion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Blog about AI, ML and Sigularity">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Intelligence Explosion">
+<meta property="og:url" content="http://sing1ee.github.io/archives/2014/page/2/">
+<meta property="og:site_name" content="Intelligence Explosion">
+<meta property="og:description" content="Blog about AI, ML and Sigularity">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Intelligence Explosion">
+<meta name="twitter:description" content="Blog about AI, ML and Sigularity">
+
+  
+    <link rel="alternative" href="/atom.xml" title="Intelligence Explosion" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Intelligence Explosion</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">The Singularity is Near</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="http://www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="sing1ee.github.io">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-社交圈子挖掘的问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/13/社交圈子挖掘的问题/" class="article-date">
+  <time datetime="2014-10-13T12:12:26.000Z" itemprop="datePublished">10月 13 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/社交挖掘/">社交挖掘</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/13/社交圈子挖掘的问题/">社交圈子挖掘的问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这是博客搬家到博客园之后的第一篇文章，也是我最近对微博社交圈子挖掘的一些思考和总结，最近主要的思考和研究，主要针对一下几个问题：</p>
+<ul>
+<li>层次性</li>
+<li>重叠性</li>
+<li>ego network</li>
+<li>有向社交网络</li>
+<li>带权社交网络</li>
+<li>统一解决上面的问题（!）</li>
+</ul>
+<p>这几个，都是社交圈子挖掘时候我们所面临的问题，在挖掘逐渐深入的过程中，问题会一个一个显现出来。我们就要一个一个解决掉，最后要能够统一在一个方法，一个框架中。我在思考的过程中，也阅读了之前的研究，绝大部分都是针对其中的一个问题，或者两个问题。很少能够解决全部的问题。那我下面尝试分析一下这些问题的产生原因，以及一些可尝试的方法。</p>
+<h4 id="层次性">层次性</h4>
+<p>层次性是一个社会属性，在我们的社交圈子中非常的明显。比如，我的一个大一点的圈子是计算所，小一点的圈子是实验室。这种层次结构非常多，很多这个包含关系的层次结构。而且，层次结构也是很重要的，在网络中学习、了解网络的结构性质很有帮助。有一个应用，比如说，猎头在找人的时候，想知道哪些人都是百度的，可是并不是每个人都在自己的profile中写了公司是百度的资料，这个时候，就可以通过圈子挖掘的算法，将潜藏的信息挖掘出来。不同的层次，可能代表着公司中的不同的组。这个需要在实验过程中，自己体会，很有乐趣。针对层次性的问题，一个很直接的揭发就是层次聚类。可以根据不同的阈值获得不同层次的结果。不过，这个方法，要针对不同的层次，设定不同的阈值，并不是那么直接。</p>
+<h4 id="重叠性">重叠性</h4>
+<p>这个是有社会中人的属性决定的：人会有小学同学、中学同学、大学同学、以前的同事、现在的同事、家人，兴趣小组等等关系圈子。首先，以个人为中心，个人出现在所有的这些圈子中（这也是下面要谈的ego network的问题），具有重叠性。另外，现实中，我的小学同学可能是在中学、大学都是同学，甚至非常有缘分的，工作了还是同事。所以重叠性是客观存在的，我们要正视这个问题。目前，在我的实验中，k-clique算法，针对重叠性，要过比较好。我之前的博客，也有介绍，大家可以看看效果。不过，一般的聚类和基于图划分的方法，都不具备这个特点。但这是很重要的一个性质。</p>
+<h4 id="Ego_network">Ego network</h4>
+<p>以前，在做社交网络的时候，并没有明确提出要针对个人、以个人为中心进行检测。基本都是对整个网络进行划分，对划分的评价也是针对整个网络进行的，比如Q函数。那为什么要构建ego network，以个人为中心进行检测呢？直观上说，没有问题。那么深层的原因呢？这个仍旧要从社会因素、社会的个体因素的角度理解。以微博为例（微博可以认为是一个社会的缩影），微博上的用户活跃度不同，最直观的表现有：1）更新微博比较频繁；2）关注、粉丝比较多；3）关注、粉丝变化也比较多。有的用户喜欢和朋友们交流，有的用户不喜欢。有的用户觉得微博是媒体，有的用户觉得微博是SNS。这些特点，都会让不同用户的关注、粉丝结构变化比较大。间接的结果就是用户的圈子大小、多少不同。所以，圈子挖掘要针对个人构建ego network，然后对该网络进行分析等。既然是针对不同的用户，构建不同的个人网络。我们是否还能够采用统一的阈值呢？当然不能。所以，针对不同的用户，学出相应的阈值，是非常重要的。这也是我最近研究的重点之一。</p>
+<h4 id="有向和带权的社交网络">有向和带权的社交网络</h4>
+<p>我在做社交圈子挖掘的时候，主要针对的是微博。由于微博自身的媒体、SNS的性质，微博的关系是有方向的。所以，我们在挖掘过程中，是否能够充分利用这一点呢。另外，产生关注关系的原因有很多，比如有的人会碍于面子的原因关注的。还有，用户之间的交互有的多有的少。这些因素就直接导致了，社交网络是一个带权的网络，社交网络中的边的权重，可以理解为用户之间的紧密度。我们可以考虑不同的紧密度计算方法。比如互相转发，评论，@的次数之类的。总而言之，充分考虑方向和权重的因素。能够很大程度上提升效果。在我的尝试方法中，这两个也是重要的因素。</p>
+<h4 id="总结">总结</h4>
+<p>上面干巴巴的说了很多问题。可能不是很有趣，但确实是我们在做社交挖掘过程中需要注意的问题。上面是一些点，如何将这些点，有机的结合在一起，将是一件更有挑战的事情。到目前为止的研究，已经有一些尝试，我会逐渐在后续的博客中，和大家分享。</p>
+<h4 id="后记">后记</h4>
+<p>博客写多了，就会发现，大家更喜欢有例子，有数据，有结果的博文。所以，我想类似这种概述性质的，还是少写为妙。多将一些论文中的观点总结，写出来，实现并且给出结果。这样会更有帮助，让大家直观的知道这些方法的优缺点。我想我更多的路子，会是这样。并且，我真心希望更多的关注社交网络的同学一起讨论。我们国内也可像国外的大学一样，做出一些社交网络挖掘的工具，让老外用我们的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://sing1ee.github.io/2014/10/13/社交圈子挖掘的问题/" data-id="5e7hfydmvwg42xbg" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://sing1ee.github.io/2014/10/13/社交圈子挖掘的问题/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复杂网络/">复杂网络</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/社交挖掘/">社交挖掘</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-大数据与复杂网络" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/13/大数据与复杂网络/" class="article-date">
+  <time datetime="2014-10-13T06:39:25.000Z" itemprop="datePublished">10月 13 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/复杂网络/">复杂网络</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/13/大数据与复杂网络/">大数据与复杂网络</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>写这篇文章，有两个原因：</p>
+<ul>
+<li>看了李院士的《大数据研究的科学价值》，有些感触。</li>
+<li>我自己做了一段时间社交，也有一些想法。</li>
+</ul>
+
+        
+          <p class="article-more-link">
+            <a href="/2014/10/13/大数据与复杂网络/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://sing1ee.github.io/2014/10/13/大数据与复杂网络/" data-id="dntfnes91rrm81bg" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://sing1ee.github.io/2014/10/13/大数据与复杂网络/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/复杂网络/">复杂网络</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-计算微博垂直领域的传播力排名" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/13/计算微博垂直领域的传播力排名/" class="article-date">
+  <time datetime="2014-10-13T06:17:08.000Z" itemprop="datePublished">10月 13 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/社交挖掘/">社交挖掘</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/13/计算微博垂直领域的传播力排名/">计算微博垂直领域的传播力排名</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这几天，我计算了几个领域的PageRank，包括投资人，程序员这种大的垂直领域，也包括“机器学习”“数据挖掘”等这样的小的领域。在挖掘的过程中，也遇到很多有意思的事情。不过，做这个，并不是要给谁排座次，只是想尝试挖掘出来一些有意思的东西。</p>
+<p>下面是我通过“机器学习”“数据挖掘”“信息检索”等关键字找出来的一批人，然后再计算排名得到的结果。后面一列是粉丝数。不过一些新开通微博的牛人：@余凯 @老师木 尚不在其中。我的数据是之前的一个快照。</p>
+<p>这样的一个排序，和粉丝的数量关系就不太一致了。所以，垂直领域，还是能够做出很有意思的东西的。可以进一步挖掘，到底哪些因素影响了某一排名。</p>
+<ul>
+<li>张栋_机器学习    48966</li>
+<li>李航博士    20336</li>
+<li>刘挺    44324</li>
+<li>孙茂松    6147</li>
+<li>沈浩老师    30236</li>
+<li>马少平THU    6964</li>
+<li>小蚊子乐园    37021</li>
+<li>王斌_ICTIR   7032</li>
+<li>刘铁岩    11266</li>
+<li>王海峰_百度   10679</li>
+<li>白硕    SH9930</li>
+<li>ICTCLAS张华平博士    4714</li>
+<li>刘群MT-to-Death    3261</li>
+<li>郑来轶    10421</li>
+<li>张磊IDMer    6571</li>
+<li>谢幸Xing    14620o</li>
+</ul>
+<p>综合一下这些事情，可以得出，对微博博主进行PageRank计算，得到的结果的含义：每一个博主的PageRank值，直接代表了博主的传播力。具体点说，就是博主发布一条微博消息，能够传播覆盖多少人，越多传播力越到，PageRank越大。很多同学会讲，这个不就是粉丝的数量么？不是的，粉丝本身有的质量高，有的质量低，实际上能够影响多少人，这个是需要衡量的。举一个例子，某一个博主300w粉丝，大部分买来的僵尸粉，而另外一个博主，只有3w，都是一个一个积累起来的。对于做营销而言，哪个更好呢？显然是后者。PageRank在一定程度上，就是起到了着作用。</p>
+<p>PageRank是一种计算的框架，一种计算的方法。在这个框架下，我们可以有很多的改进，比如就拿上面的这些人来看，我们如果想要计算专家能力排序，应该怎么做呢？仅仅是有关注，就确切表示一条边么？其实在网络建模的过程中，我们有很多的基础可以用来加强模型，或者利用不同的信息，为不同目的建立模型。比如，这条关注的边强度有多大呢？如何来衡量，一个很有用的点就是微博上两个人之间的交互信息。这个很重要，新浪可以做很多事情。</p>
+<p>社交网络时代，数据为王。我们有很多工具，很多算法可以来做挖掘，但是，没有数据，都是白费心思的。尤其是涉及到网络的一些挖掘，网络规模达到一定程度，好多性质是不会涌现出来的。</p>
+<p>希望和更多的同学一起交流。</p>
+<p>计算的工具依然是graphchi，非常好用。限定领域这块儿，我做的比较粗糙，目前就是通过关键字去检索。只要匹配上了，我就认为这个博主是该领域相关的。这部分，也是需要一些工作量的。也是很有意思，很有价值的一块儿工作。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://sing1ee.github.io/2014/10/13/计算微博垂直领域的传播力排名/" data-id="wsd3kthypocbbyf0" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://sing1ee.github.io/2014/10/13/计算微博垂直领域的传播力排名/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微博/">微博</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/社交挖掘/">社交挖掘</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/10/13/hello-world/" class="article-date">
+  <time datetime="2014-10-13T05:36:06.000Z" itemprop="datePublished">10月 13 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/13/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick_Start">Quick Start</h2>
+<h3 id="Create_a_new_post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run_server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate_static_files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://sing1ee.github.io/2014/10/13/hello-world/" data-id="pu4cflnnk7cjrvto" class="article-share-link" data-share="baidu">分享到</a>
+      
+
+      
+        <a href="http://sing1ee.github.io/2014/10/13/hello-world/#ds-thread" class="article-comment-link">Comments</a>
+      
+
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/archives/2014/">&laquo; Prev</a><a class="page-number" href="/archives/2014/">1</a><span class="page-number current">2</span>
+    </nav>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/人工智能/">人工智能</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/分享/">分享</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/复杂网络/">复杂网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/深度学习/">深度学习</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/社交挖掘/">社交挖掘</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/金融大数据/">金融大数据</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AGI/">AGI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepMind/">DeepMind</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Leetcode/">Leetcode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nlp/">nlp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/stack/">stack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/京东/">京东</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/人工智能/">人工智能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/关键词/">关键词</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创业/">创业</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/复杂网络/">复杂网络</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/微博/">微博</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/思维的变革/">思维的变革</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/指数/">指数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/推荐实践/">推荐实践</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/推荐系统/">推荐系统</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数组/">数组</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栈/">栈</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/潜意识/">潜意识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/社交挖掘/">社交挖掘</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/社交网络/">社交网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/神经网络/">神经网络</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序员/">程序员</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/美股/">美股</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自然语言处理/">自然语言处理</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/趋势/">趋势</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/金融/">金融</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/雪球/">雪球</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试题/">面试题</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AGI/" style="font-size: 10.00px;">AGI</a><a href="/tags/DeepMind/" style="font-size: 10.00px;">DeepMind</a><a href="/tags/Leetcode/" style="font-size: 10.00px;">Leetcode</a><a href="/tags/leetcode/" style="font-size: 16.67px;">leetcode</a><a href="/tags/nlp/" style="font-size: 10.00px;">nlp</a><a href="/tags/stack/" style="font-size: 10.00px;">stack</a><a href="/tags/二分查找/" style="font-size: 13.33px;">二分查找</a><a href="/tags/京东/" style="font-size: 10.00px;">京东</a><a href="/tags/人工智能/" style="font-size: 10.00px;">人工智能</a><a href="/tags/关键词/" style="font-size: 10.00px;">关键词</a><a href="/tags/创业/" style="font-size: 10.00px;">创业</a><a href="/tags/动态规划/" style="font-size: 13.33px;">动态规划</a><a href="/tags/复杂网络/" style="font-size: 16.67px;">复杂网络</a><a href="/tags/大数据/" style="font-size: 10.00px;">大数据</a><a href="/tags/微博/" style="font-size: 10.00px;">微博</a><a href="/tags/思维的变革/" style="font-size: 10.00px;">思维的变革</a><a href="/tags/指数/" style="font-size: 10.00px;">指数</a><a href="/tags/推荐实践/" style="font-size: 10.00px;">推荐实践</a><a href="/tags/推荐系统/" style="font-size: 10.00px;">推荐系统</a><a href="/tags/数组/" style="font-size: 13.33px;">数组</a><a href="/tags/机器学习/" style="font-size: 10.00px;">机器学习</a><a href="/tags/栈/" style="font-size: 10.00px;">栈</a><a href="/tags/深度学习/" style="font-size: 13.33px;">深度学习</a><a href="/tags/潜意识/" style="font-size: 10.00px;">潜意识</a><a href="/tags/社交挖掘/" style="font-size: 16.67px;">社交挖掘</a><a href="/tags/社交网络/" style="font-size: 10.00px;">社交网络</a><a href="/tags/神经网络/" style="font-size: 10.00px;">神经网络</a><a href="/tags/程序员/" style="font-size: 10.00px;">程序员</a><a href="/tags/算法/" style="font-size: 20.00px;">算法</a><a href="/tags/美股/" style="font-size: 10.00px;">美股</a><a href="/tags/自然语言处理/" style="font-size: 10.00px;">自然语言处理</a><a href="/tags/读书笔记/" style="font-size: 13.33px;">读书笔记</a><a href="/tags/趋势/" style="font-size: 10.00px;">趋势</a><a href="/tags/金融/" style="font-size: 10.00px;">金融</a><a href="/tags/雪球/" style="font-size: 10.00px;">雪球</a><a href="/tags/面试题/" style="font-size: 10.00px;">面试题</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">13</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/06/07/读书笔记2-：程序员的思维修炼/">读书笔记2 ：《程序员的思维修炼》</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/07/读书笔记-1：《团队协作的五大障碍》/">读书笔记1：《团队协作的五大障碍》</a>
+          </li>
+        
+          <li>
+            <a href="/2014/11/24/min-stack/">min stack</a>
+          </li>
+        
+          <li>
+            <a href="/2014/10/28/旋转数组最小值II/">旋转数组最小值II</a>
+          </li>
+        
+          <li>
+            <a href="/2014/10/21/深度学习、自然语言处理和表征方法/">深度学习、自然语言处理和表征方法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">友情链接</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://xiguabaobao.com" target="_blank">主题作者</a>
+          </li>
+        
+          <li>
+            <a href="http://reqianduan.com" target="_blank">热前端</a>
+          </li>
+        
+          <li>
+            <a href="https://dsy.im/" target="_blank">YumeMichi&#39;s Wiki</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 zhangcheng<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"sing1ee"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>window._bd_share_config={"common":{},"share":{"bdCustomStyle":"nocss.css"}};with(document)0[(getElementsByTagName("head")[0]||body).appendChild(createElement("script")).src="http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion="+~(-new Date()/36e5)];</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>
